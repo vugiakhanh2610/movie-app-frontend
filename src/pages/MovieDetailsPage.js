@@ -8,23 +8,24 @@ const MovieDetailsPage = () => {
   const { data, error } = useSWR(fetchAPI.getMovieDetail(movieId), fetcher);
   const loading = !data && !error;
   if (!data) return null;
-  const { backdropPath, posterPath, title, genres, overview } = data;
+  console.log(data);
+  const { backdrop_path, poster_path, title, genre, overview } = data;
 
   return (
-    <div className="py-10">
+    <div className="page-container py-10">
       {loading && <Loading></Loading>}
-      <div className="w-full h-[600px] relative">
+      <div className="w-[90%] h-[550px] relative left-[50%] translate-x-[-50%]">
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div
           className="w-full h-full bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url(${fetchAPI.imageOriginal(posterPath)})`,
+            backgroundImage: `url(${fetchAPI.imageOriginal(poster_path)})`,
           }}
         ></div>
       </div>
       <div className="w-full h-[400px] max-w-[800px] mx-auto -mt-[200px] relative z-10 pb-10">
         <img
-          src={fetchAPI.imageOriginal(backdropPath)}
+          src={fetchAPI.imageOriginal(backdrop_path)}
           className="w-full h-full object-cover rounded-xl"
           alt=""
         />
@@ -32,18 +33,17 @@ const MovieDetailsPage = () => {
       <h1 className="text-center text-4xl font-bold text-white mb-10">
         {title}
       </h1>
-      {genres.length > 0 && (
-        <div className="flex items-center justify-center gap-x-5 mb-10">
-          {genres.map((item) => (
-            <span
-              className="py-2 px-4 border-primary text-primary border rounded"
-              key={item.id}
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      )}
+      <div className="flex items-center justify-center gap-x-5 mb-10">
+        {genre.split(",").map((item) => (
+          <span
+            className="py-2 px-4 border-primary text-primary border rounded"
+            key={item.id}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
       <p className="text-center leading-relaxed max-w-[600px] mx-auto mb-10">
         {overview}
       </p>
