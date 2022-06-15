@@ -8,7 +8,6 @@ const MovieDetailsPage = () => {
   const { data, error } = useSWR(fetchAPI.getMovieDetail(movieId), fetcher);
   const loading = !data && !error;
   if (!data) return null;
-  console.log(data);
   const { backdrop_path, poster_path, title, genre, overview } = data;
 
   return (

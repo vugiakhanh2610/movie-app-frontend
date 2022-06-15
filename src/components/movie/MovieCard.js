@@ -5,7 +5,6 @@ import Button from "../button/Button";
 
 const MovieCard = ({ props }) => {
   const navigate = useNavigate();
-
   return (
     <div className="movie-card p-3 bg-slate-800 rounded-lg select-none">
       <img
